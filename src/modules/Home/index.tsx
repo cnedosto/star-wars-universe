@@ -8,7 +8,8 @@ import { MovieSlide } from "../../components/MovieSlide/MovieSlide";
 import { Movie } from "../../types/MovieTypes";
 
 const lethargy = new Lethargy();
-const clamp = (value, min, max) => Math.max(Math.min(max, value), min);
+const clamp = (value: any, min: any, max: any) =>
+  Math.max(Math.min(max, value), min);
 
 export const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);

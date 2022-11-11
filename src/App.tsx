@@ -15,8 +15,9 @@ function App() {
     if (mode && isDarkMode) {
       mode.classList.value = "dark";
       return;
+    } else if (mode && !isDarkMode) {
+      mode.classList.value = "light";
     }
-    mode.classList.value = "light";
   }, [isDarkMode]);
 
   return (
