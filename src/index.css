@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  font-family: 'Oswald', sans-serif;
+  scroll-snap-stop: always;
+}
+
+.l-page {
+  min-height: calc(100vh - 64px);
+  min-width: 100vw;
+}
+
+.scrolling-touch { -webkit-overflow-scrolling: touch; }
+
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: monospace;
+  background: cornsilk;
+}
+
+* {
+  box-sizing: content-box;
+}
+
+.c-title-stroke{
+  -webkit-text-stroke: 1px white;
+}
+
+
+.c-rotate-y {
+  -webkit-animation: rotateY 2.5s infinite linear;
+  animation: rotateY 2.5s infinite linear;
+}
+@-webkit-keyframes rotateY {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY {
+  to { transform: rotateY(360deg); }
+}
