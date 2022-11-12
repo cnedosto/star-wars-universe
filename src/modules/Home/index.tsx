@@ -20,7 +20,7 @@ const clamp = (value: any, min: any, max: any) =>
 
 export const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [imgData, setImgData] = useState(null);
+  const [imgData, setImgData] = useState([]);
   const [charsData, setCharsData] = useState(null);
   const { data, isLoading } = useQuery({
     queryKey: ["movies"],

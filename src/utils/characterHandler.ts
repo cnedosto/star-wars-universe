@@ -2,8 +2,8 @@ import { ImageData } from "../types/ImagesType";
 
 export const handleCharById = (characters: Array<string>) =>
   characters.map((char) => {
-    const match: RegExpMatchArray | null = char.match(/(\d+)/);
-    return match[0];
+    const match = char.match(/(\d+)/);
+    return match && match[0];
   });
 
 export const sanitizeCharsData = (data: any) => {
