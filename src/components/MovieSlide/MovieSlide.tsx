@@ -34,9 +34,7 @@ export const MovieSlide = ({
         />
         <div className="py-12 pl-24 pr-12">
           <img src={posterImage} className="w-[70rem]" />
-          <div className="bg-cyan-500 dark:bg-red-700 rounded-b-md p-2 text-base text-center">
-            Expand
-          </div>
+          <div className="bg-cyan-500 dark:bg-red-700 rounded-b-md p-4 text-base text-center" />
         </div>
         <div className="flex flex-col items-start pl-12 pr-24 py-12">
           <span className="text-5xl mb-12">
