@@ -1,71 +1,84 @@
 import useDarkMode from "../../hooks/useDarkMode";
-import EpisodeIDark from "../../assets/images/backgrounds/episode_i_dark.png";
-import EpisodeILight from "../../assets/images/backgrounds/episode_i_light.jpeg";
-import EpisodeIIDark from "../../assets/images/backgrounds/episode_ii_dark.webp";
-import EpisodeIILight from "../../assets/images/backgrounds/episode_ii_light.webp";
-import EpisodeIIIDark from "../../assets/images/backgrounds/episode_iii_dark.webp";
-import EpisodeIIILight from "../../assets/images/backgrounds/episode_iii_light.jpeg";
-import EpisodeIVDark from "../../assets/images/backgrounds/episode_iv_dark.jpeg";
-import EpisodeIVLight from "../../assets/images/backgrounds/episode_iv_light.webp";
-import EpisodeVDark from "../../assets/images/backgrounds/episode_v_dark.png";
-import EpisodeVLight from "../../assets/images/backgrounds/episode_v_light.webp";
-import EpisodeVIDark from "../../assets/images/backgrounds/episode_vi_dark.webp";
-import EpisodeVILight from "../../assets/images/backgrounds/episode_vi_light.jpeg";
 import { MovieSlideProps } from "../../types/MovieTypes";
+import {
+  handleImageToShow,
+  handlePosterToShow,
+} from "../../utils/imageHandler";
+import { toRomanNumber } from "../../utils/convertToRomanNumber";
+import { excludeName, handleCharById } from "../../utils/characterHandler";
 
-export const MovieSlide = ({ movie, key, slideIndex }: MovieSlideProps) => {
-  const { title, producer, director, opening_crawl } = movie;
+export const MovieSlide = ({
+  movie,
+  key,
+  slideIndex,
+  charsData,
+}: MovieSlideProps) => {
+  const { title, producer, director, opening_crawl, characters } = movie;
   const { isDarkMode } = useDarkMode();
-  const handleImageToShow = (i: number) => {
-    if (isDarkMode) {
-      switch (i) {
-        case 0:
-          return EpisodeIDark;
-        case 1:
-          return EpisodeIIDark;
-        case 2:
-          return EpisodeIIIDark;
-        case 3:
-          return EpisodeIVDark;
-        case 4:
-          return EpisodeVDark;
-        case 5:
-          return EpisodeVIDark;
-      }
-    } else {
-      switch (i) {
-        case 0:
-          return EpisodeILight;
-        case 1:
-          return EpisodeIILight;
-        case 2:
-          return EpisodeIIILight;
-        case 3:
-          return EpisodeIVLight;
-        case 4:
-          return EpisodeVLight;
-        case 5:
-          return EpisodeVILight;
-      }
-    }
-  };
+
+  const backgroundImage = handleImageToShow(slideIndex, isDarkMode);
+  const posterImage = handlePosterToShow(slideIndex);
+  const charList = handleCharById(characters);
+
   return (
     <div
-      style={{ backgroundImage: `url(${handleImageToShow(slideIndex)})` }}
-      className="w-screen h-screen bg-center bg-cover flex items-end text-black dark:text-white"
       key={key}
+      className="h-screen w-screen flex flex-col text-black dark:text-white"
     >
-      <div className=" group h-1/3 grow bg-gradient-to-t from-white via-[#FFFFFFCC] to-transparent dark:from-black dark:via-[#000000CC]">
-        <span className="text-4xl font-bold flex justify-center uppercase c-title-stroke">
-          {title}
-        </span>
-        <div className="group-hover:-translate-y-[5%] h-full translate-y-full transition duration-500 ease-in-out p-8 bg-gradient-to-t from-white dark:from-black dark:to-transparent">
-          <span className="flex flex-col items-center justify-center">
-            Director : {director} - Producer : {producer}
+      <div className=" flex flex-row relative">
+        <div
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+          }}
+          className="bg-cover h-screen w-screen absolute -z-10 opacity-30"
+        />
+        <div className="py-12 pl-24 pr-12">
+          <img src={posterImage} className="w-[70rem]" />
+          <div className="bg-cyan-500 dark:bg-red-700 rounded-b-md p-2 text-base text-center">
+            Expand
+          </div>
+        </div>
+        <div className="flex flex-col items-start pl-12 pr-24 py-12">
+          <span className="text-5xl mb-12">
+            Star Wars Episode {toRomanNumber(slideIndex)} : {title}
           </span>
-          <span className="mx-80 flex items-start py-4 text-base">
+          <div className="py-3 font-normal font-source">
+            <span className="pr-2 font-source text-xl font-semibold">
+              Director :
+            </span>
+            <span className="text-lg font-source tracking-wide">
+              {director}
+            </span>
+          </div>
+          <div className="py-3 font-normal font-source">
+            <span className="pr-2 font-source text-xl font-semibold">
+              Producer :
+            </span>
+            <span className="text-lg font-source tracking-wide">
+              {producer}
+            </span>
+          </div>
+          <div className="py-3 tracking-wide font-normal text-lg font-source leading-relaxed">
             {opening_crawl}
-          </span>
+          </div>
+          <div className="flex flex-wrap">
+            {charsData
+              ?.filter((c) =>
+                charList.find((cl) => cl === c.id && !excludeName(c.name))
+              )
+              .map((char) => {
+                return (
+                  <div className="flex flex-col items-center p-4 w-36">
+                    <img
+                      src={char.image}
+                      alt={char.name}
+                      className="rounded-full h-12"
+                    />
+                    <span>{char.name}</span>
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </div>
     </div>

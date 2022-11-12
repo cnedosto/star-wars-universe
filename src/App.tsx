@@ -1,12 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
-import { Loader } from "./components/Loader/Loader";
-import { MovieCard } from "./components/MovieCard/MovieCard";
+import { useEffect, useMemo } from "react";
 import { Navbar } from "./components/Navbar/Navbar";
 import useDarkMode from "./hooks/useDarkMode";
 import { Home } from "./modules/Home";
-import { fetchMovies } from "./services/api/fetchMovies";
+import { fetchImages } from "./services/api/fetchImages";
 import { BACKGROUND } from "./styles/background";
+import { ImagesType } from "./types/ImagesType";
 
 function App() {
   const { isDarkMode } = useDarkMode();
